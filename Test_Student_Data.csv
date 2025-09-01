@@ -1,0 +1,16 @@
+USN,Student Name,Admission No,Subject 1,Code 1,Subject 2,Code 2,Subject 3,Code 3,Subject 4,Code 4,Subject 5,Code 5
+1RV21CS001,Aarav Kumar,E001,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305
+1RV21CS002,Priya Sharma,E002,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305
+1RV21CS003,Rahul Patel,E003,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305
+1RV21CS004,Sneha Reddy,E004,Algorithms,CS401,Machine Learning,CS402,Web Development,CS403,Mobile Computing,CS404,Cloud Computing,CS405
+1RV21CS005,Arjun Singh,E005,Algorithms,CS401,Machine Learning,CS402,Web Development,CS403,Mobile Computing,CS404,Cloud Computing,CS405
+1RV21CS006,Kavya Nair,E006,Computer Graphics,CS501,Network Security,CS502,Artificial Intelligence,CS503,Big Data Analytics,CS504,IoT Systems,CS505
+1RV21CS007,Vikram Joshi,E007,Computer Graphics,CS501,Network Security,CS502,Artificial Intelligence,CS503,Big Data Analytics,CS504,IoT Systems,CS505
+1RV21CS008,Ananya Gupta,E008,Compiler Design,CS601,Information Security,CS602,Distributed Systems,CS603,Human Computer Interaction,CS604,Project Work,CS605
+1RV21EC001,Siddharth Agarwal,EC001,Electronic Circuits,EC301,Digital Signal Processing,EC302,Communication Systems,EC303,Microprocessors,EC304,VLSI Design,EC305
+1RV21EC002,Pooja Mishra,EC002,Electronic Circuits,EC301,Digital Signal Processing,EC302,Communication Systems,EC303,Microprocessors,EC304,VLSI Design,EC305
+1RV21ME001,Karthik Rao,ME001,Thermodynamics,ME301,Fluid Mechanics,ME302,Machine Design,ME303,Manufacturing Processes,ME304,Heat Transfer,ME305
+1RV21ME002,Divya Krishnan,ME002,Thermodynamics,ME301,Fluid Mechanics,ME302,Machine Design,ME303,Manufacturing Processes,ME304,Heat Transfer,ME305
+1RV21CV001,Amit Patil,CV001,Structural Analysis,CV301,Concrete Technology,CV302,Geotechnical Engineering,CV303,Transportation Engineering,CV304,Water Resources,CV305
+1RV21CV002,Riya Jain,CV002,Structural Analysis,CV301,Concrete Technology,CV302,Geotechnical Engineering,CV303,Transportation Engineering,CV304,Water Resources,CV305
+1RV21EE001,Manoj Kumar,EE001,Electrical Machines,EE301,Power Systems,EE302,Control Systems,EE303,Power Electronics,EE304,Electrical Measurements,EE305

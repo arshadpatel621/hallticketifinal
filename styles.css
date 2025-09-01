@@ -1,0 +1,444 @@
+/* Hall Ticket Generator - Responsive Styles */
+
+/* Base styles */
+* {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Layout utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Card styles with responsive hover */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Touch devices - reduce transform to avoid layout issues */
+@media (hover: none) and (pointer: coarse) {
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Utility classes */
+.hidden {
+  display: none;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive table styles */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.excel-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 800px;
+  background: white;
+}
+
+.excel-cell {
+  border: 1px solid #d1d5db;
+  padding: 12px 8px;
+  min-width: 100px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.excel-cell input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 4px;
+  font-size: 14px;
+  background: transparent;
+}
+
+.excel-header {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+/* Button styles - touch friendly */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  min-height: 44px; /* Touch target size */
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.btn-success {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* Form elements - mobile friendly */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px; /* Prevents zoom on iOS */
+  line-height: 1.5;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Navigation improvements */
+.nav-link {
+  display: block;
+  padding: 8px 16px;
+  color: #4b5563;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  background-color: #f3f4f6;
+  color: #3b82f6;
+}
+
+/* Mobile menu improvements */
+.mobile-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 40;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-menu.show {
+  transform: translateY(0);
+}
+
+/* Preview container responsive */
+.preview-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.hall-ticket-preview {
+  transform-origin: top left;
+  max-width: 100%;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Typography scaling */
+  .text-6xl {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  
+  .text-5xl {
+    font-size: 2rem !important;
+  }
+  
+  .text-4xl {
+    font-size: 1.875rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Spacing adjustments */
+  .py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  .py-12 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .mb-16 {
+    margin-bottom: 2rem !important;
+  }
+  
+  .mb-12 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Button groups on mobile */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .button-group .btn {
+    width: 100%;
+  }
+  
+  /* Card adjustments */
+  .card-hover {
+    margin-bottom: 1rem;
+  }
+  
+  /* Table on mobile */
+  .excel-table {
+    font-size: 12px;
+  }
+  
+  .excel-cell {
+    padding: 8px 4px;
+    min-width: 80px;
+  }
+  
+  /* Preview scaling */
+  .hall-ticket-preview {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 125%; /* Compensate for scale */
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .excel-cell {
+    padding: 10px 6px;
+    min-width: 90px;
+  }
+  
+  .hall-ticket-preview {
+    transform: scale(0.9);
+    width: 111%;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1025px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .excel-table {
+    border-width: 0.5px;
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  /* Add dark mode styles here if needed */
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeIn {
+    animation: none;
+  }
+  
+  .card-hover {
+    transition: none;
+  }
+  
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Back button styles */
+.back-button {
+  animation: slideInLeft 0.3s ease-out;
+  transform-origin: left center;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.back-button:active {
+  transform: scale(0.98);
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.form-input:focus,
+.form-select:focus,
+.back-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Footer styles */
+footer {
+  border-top: 1px solid #e5e7eb;
+}
+
+.modal-footer {
+  background: #f9fafb;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.small-note {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* MAXIMUS credit highlight */
+.maximus-credit {
+  display: inline-block;
+  background: linear-gradient(90deg,#fff7ed,#fef3c7);
+  color: #92400e;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(37,99,235,0.06);
+  font-size: 0.92rem;
+}
+

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Hall Ticket Generator Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90vw;
+            max-width: 1200px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 60px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide h1 {
+            color: #3B82F6;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .slide h2 {
+            color: #1F2937;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .slide h3 {
+            color: #3B82F6;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.4em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .slide ul {
+            padding-left: 40px;
+            margin-bottom: 30px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-card i {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .feature-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .tech-item {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .tech-item i {
+            font-size: 4em;
+            color: #3B82F6;
+            margin-bottom: 10px;
+        }
+
+        .tech-item span {
+            display: block;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #3B82F6;
+        }
+
+        .demo-section {
+            background: #F8FAFC;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #3B82F6;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title-slide h1 {
+            color: white;
+            font-size: 4em;
+            margin-bottom: 30px;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .title-slide .logo {
+            font-size: 6em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            text-align: center;
+            flex: 1;
+            margin: 20px;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #3B82F6;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-icon {
+            background: #3B82F6;
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin: 0 auto 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active title-slide">
+            <div class="slide-counter">1 / 10</div>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>EduConnect</h1>
+            <p class="subtitle">Professional Hall Ticket Generator</p>
+            <p style="font-size: 1.3em; opacity: 0.8;">Streamlining Academic Administration with Modern Technology</p>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide">
+            <div class="slide-counter">2 / 10</div>
+            <h2>The Challenge</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <h3>Traditional Hall Ticket Generation:</h3>
+                    <ul>
+                        <li><i class="fas fa-times" style="color: #EF4444; margin-right: 10px;"></i>Manual, time-consuming process</li>
+                        <li><i class="fas fa-times" style="color: #EF4444; margin-right: 10px;"></i>Prone to human errors</li>
+                        <li><i class="fas fa-times" style="color: #EF4444; margin-right: 10px;"></i>Inconsistent formatting</li>
+                        <li><i class="fas fa-times" style="color: #EF4444; margin-right: 10px;"></i>Limited customization options</li>
+                        <li><i class="fas fa-times" style="color: #EF4444; margin-right: 10px;"></i>Poor scalability</li>
+                    </ul>
+                </div>
+                <div style="text-align: center;">
+                    <i class="fas fa-file-alt" style="font-size: 8em; color: #EF4444; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Solution Overview -->
+        <div class="slide">
+            <div class="slide-counter">3 / 10</div>
+            <h2>Our Solution: EduConnect</h2>
+            <p style="text-align: center; font-size: 1.6em; margin-bottom: 40px; color: #3B82F6;">A comprehensive, web-based hall ticket generation system designed for modern educational institutions</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Lightning Fast</h4>
+                    <p>Generate hundreds of hall tickets in seconds</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-palette"></i>
+                    <h4>Fully Customizable</h4>
+                    <p>Match your institution's branding and requirements</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Secure & Reliable</h4>
+                    <p>Built with security and data integrity in mind</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Features -->
+        <div class="slide">
+            <div class="slide-counter">4 / 10</div>
+            <h2>Key Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                <div>
+                    <h3><i class="fas fa-upload" style="color: #3B82F6; margin-right: 15px;"></i>Smart Import System</h3>
+                    <ul>
+                        <li>Excel/CSV file import</li>
+                        <li>Dynamic subject handling (5, 7, or more)</li>
+                        <li>Automatic data validation</li>
+                        <li>Flexible column mapping</li>
+                    </ul>
+
+                    <h3><i class="fas fa-edit" style="color: #10B981; margin-right: 15px;"></i>Advanced Customization</h3>
+                    <ul>
+                        <li>Multiple design templates</li>
+                        <li>Logo upload support</li>
+                        <li>Color scheme customization</li>
+                        <li>Font and layout options</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3><i class="fas fa-file-pdf" style="color: #EF4444; margin-right: 15px;"></i>PDF Generation</h3>
+                    <ul>
+                        <li>High-quality VTU-style PDFs</li>
+                        <li>Batch processing capability</li>
+                        <li>Student and office copies</li>
+                        <li>Optimized layouts for printing</li>
+                    </ul>
+
+                    <h3><i class="fas fa-image" style="color: #8B5CF6; margin-right: 15px;"></i>Photo Management</h3>
+                    <ul>
+                        <li>Individual photo upload</li>
+                        <li>Bulk photo import</li>
+                        <li>Automatic USN matching</li>
+                        <li>Image format support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: How It Works -->
+        <div class="slide">
+            <div class="slide-counter">5 / 10</div>
+            <h2>How It Works</h2>
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h4>Select Branch & Year</h4>
+                    <p>Choose from 15+ engineering branches</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h4>Import Data</h4>
+                    <p>Upload Excel/CSV with student information</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h4>Customize Design</h4>
+                    <p>Apply templates and branding</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h4>Generate & Download</h4>
+                    <p>Create professional PDFs instantly</p>
+                </div>
+            </div>
+            
+            <div class="demo-section">
+                <h3><i class="fas fa-clock" style="color: #3B82F6; margin-right: 10px;"></i>Time Efficiency</h3>
+                <p>What traditionally takes hours now takes minutes. Generate hall tickets for an entire batch of 200+ students in under 2 minutes!</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Technical Architecture -->
+        <div class="slide">
+            <div class="slide-counter">6 / 10</div>
+            <h2>Technical Architecture</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <i class="fab fa-html5" style="color: #E34F26;"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-css3-alt" style="color: #1572B6;"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-js-square" style="color: #F7DF1E;"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-file-excel" style="color: #217346;"></i>
+                    <span>SheetJS</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-file-pdf" style="color: #DC2626;"></i>
+                    <span>jsPDF</span>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px;">
+                <div>
+                    <h3>Frontend Technologies</h3>
+                    <ul>
+                        <li>Responsive design with Tailwind CSS</li>
+                        <li>Modern ES6+ JavaScript</li>
+                        <li>Client-side PDF generation</li>
+                        <li>Real-time preview system</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Key Libraries</h3>
+                    <ul>
+                        <li>SheetJS for Excel processing</li>
+                        <li>jsPDF for PDF generation</li>
+                        <li>FontAwesome for icons</li>
+                        <li>Custom validation engine</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Benefits & Impact -->
+        <div class="slide">
+            <div class="slide-counter">7 / 10</div>
+            <h2>Benefits & Impact</h2>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Time Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Engineering Branches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Students Capacity</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px;">
+                <div>
+                    <h3>For Administrators</h3>
+                    <ul>
+                        <li>Eliminate manual errors</li>
+                        <li>Save countless hours</li>
+                        <li>Professional appearance</li>
+                        <li>Easy batch processing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>For Institutions</h3>
+                    <ul>
+                        <li>Cost-effective solution</li>
+                        <li>Scalable architecture</li>
+                        <li>Brand consistency</li>
+                        <li>Environmental friendly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Unique Selling Points -->
+        <div class="slide">
+            <div class="slide-counter">8 / 10</div>
+            <h2>What Makes EduConnect Special?</h2>
+            
+            <div style="display: grid; gap: 30px;">
+                <div class="demo-section">
+                    <h3><i class="fas fa-magic" style="color: #8B5CF6; margin-right: 10px;"></i>Dynamic Subject Handling</h3>
+                    <p>Unlike traditional systems limited to 5 subjects, EduConnect dynamically handles 7, 8, or any number of subjects with intelligent font scaling and layout optimization.</p>
+                </div>
+
+                <div class="demo-section">
+                    <h3><i class="fas fa-mobile-alt" style="color: #10B981; margin-right: 10px;"></i>Mobile-First Design</h3>
+                    <p>Fully responsive interface that works perfectly on desktop, tablet, and mobile devices. Generate hall tickets anywhere, anytime.</p>
+                </div>
+
+                <div class="demo-section">
+                    <h3><i class="fas fa-cogs" style="color: #F59E0B; margin-right: 10px;"></i>VTU-Compliant Format</h3>
+                    <p>Specifically designed to meet VTU (Visvesvaraya Technological University) standards with proper formatting, signatures, and layout requirements.</p>
+                </div>
+
+                <div class="demo-section">
+                    <h3><i class="fas fa-rocket" style="color: #EF4444; margin-right: 10px;"></i>Zero Installation</h3>
+                    <p>Runs entirely in web browser - no software installation, no server setup, no maintenance required. Just open and use!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Future Roadmap -->
+        <div class="slide">
+            <div class="slide-counter">9 / 10</div>
+            <h2>Future Enhancements</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                <div>
+                    <h3><i class="fas fa-cloud" style="color: #3B82F6; margin-right: 15px;"></i>Cloud Integration</h3>
+                    <ul>
+                        <li>Cloud storage integration</li>
+                        <li>Real-time collaboration</li>
+                        <li>Automatic backups</li>
+                        <li>Multi-user access</li>
+                    </ul>
+
+                    <h3><i class="fas fa-chart-bar" style="color: #10B981; margin-right: 15px;"></i>Analytics Dashboard</h3>
+                    <ul>
+                        <li>Generation statistics</li>
+                        <li>Usage analytics</li>
+                        <li>Performance metrics</li>
+                        <li>Student data insights</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3><i class="fas fa-mobile-alt" style="color: #8B5CF6; margin-right: 15px;"></i>Mobile App</h3>
+                    <ul>
+                        <li>Native mobile application</li>
+                        <li>Offline capability</li>
+                        <li>Push notifications</li>
+                        <li>Camera integration for photos</li>
+                    </ul>
+
+                    <h3><i class="fas fa-robot" style="color: #F59E0B; margin-right: 15px;"></i>AI Features</h3>
+                    <ul>
+                        <li>Smart data validation</li>
+                        <li>Auto-error detection</li>
+                        <li>Predictive formatting</li>
+                        <li>OCR for data extraction</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Thank You / Call to Action -->
+        <div class="slide title-slide">
+            <div class="slide-counter">10 / 10</div>
+            <div class="logo">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1>Thank You</h1>
+            <p class="subtitle">Ready to Transform Your Hall Ticket Generation?</p>
+            
+            <div style="margin-top: 50px;">
+                <h3 style="color: white; margin-bottom: 30px;">Get Started Today</h3>
+                <p style="font-size: 1.3em; opacity: 0.9; margin-bottom: 20px;">
+                    <i class="fas fa-globe" style="margin-right: 10px;"></i>
+                    Visit: your-website-url.com
+                </p>
+                <p style="font-size: 1.3em; opacity: 0.9; margin-bottom: 20px;">
+                    <i class="fas fa-envelope" style="margin-right: 10px;"></i>
+                    Contact: support@educonnect.com
+                </p>
+                <p style="font-size: 1.3em; opacity: 0.9;">
+                    <i class="fas fa-phone" style="margin-right: 10px;"></i>
+                    Phone: +91 9876543210
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()" id="prevBtn">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="nav-btn" onclick="nextSlide()" id="nextBtn">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+
+        // Auto-play functionality (optional)
+        // setInterval(nextSlide, 10000); // Auto-advance every 10 seconds
+    </script>
+</body>
+</html>

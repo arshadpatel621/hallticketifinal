@@ -1,0 +1,16 @@
+S.No,USN,Name,Admission No,Subject 1,Code 1,Subject 2,Code 2,Subject 3,Code 3,Subject 4,Code 4,Subject 5,Code 5,Subject 6,Code 6,Subject 7,Code 7
+1,1RV21CS001,Aarav Kumar,2021001,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305,,
+2,1RV21CS002,Priya Sharma,2021002,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305,Web Programming,CS306,
+3,1RV21CS003,Rahul Patel,2021003,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305,Web Programming,CS306,Mobile App Development,CS307
+4,1RV21CS004,Sneha Reddy,2021004,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305,,
+5,1RV21CS005,Arjun Singh,2021005,Data Structures,CS301,Computer Networks,CS302,Database Management,CS303,Operating Systems,CS304,Software Engineering,CS305,Web Programming,CS306,
+
+Instructions:
+- S.No column will be auto-renumbered (1, 2, 3, ...)
+- Column order can be flexible - the import will auto-detect
+- USN and Name are required columns
+- Admission No is optional
+- You can have 5-7+ subjects (system will adapt)
+- Subject Name and Code should be in pairs
+- Leave Subject/Code cells empty if student has fewer subjects
+- The import supports any column order as long as headers are clear
