@@ -66,6 +66,25 @@ body {
   -webkit-overflow-scrolling: touch;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Add table scroll indicator */
+.table-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 20px;
+  background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.table-container.scrollable::after {
+  opacity: 1;
 }
 
 .excel-table {
@@ -73,6 +92,7 @@ body {
   width: 100%;
   min-width: 800px;
   background: white;
+  position: relative;
 }
 
 .excel-cell {
@@ -81,6 +101,7 @@ body {
   min-width: 100px;
   text-align: left;
   vertical-align: middle;
+  position: relative;
 }
 
 .excel-cell input {
@@ -90,6 +111,12 @@ body {
   padding: 4px;
   font-size: 14px;
   background: transparent;
+  min-height: 20px;
+}
+
+.excel-cell input:focus {
+  background-color: #f0f9ff;
+  border-radius: 4px;
 }
 
 .excel-header {
@@ -97,6 +124,59 @@ body {
   font-weight: 600;
   color: #1f2937;
   white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Mobile table enhancements */
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 12px;
+    margin: 0 -1rem;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .excel-table {
+    min-width: 1200px; /* Ensure horizontal scroll */
+    font-size: 13px;
+  }
+  
+  .excel-cell {
+    padding: 10px 6px;
+    min-width: 90px;
+    font-size: 12px;
+  }
+  
+  .excel-cell:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f8fafc;
+    z-index: 5;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+  }
+  
+  .excel-header .excel-cell:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 15;
+    background-color: #f1f5f9;
+  }
+  
+  /* Photo column specific styling */
+  .excel-cell:nth-child(5) {
+    min-width: 60px;
+    text-align: center;
+  }
+  
+  /* Subject columns */
+  .excel-cell:nth-child(n+6) {
+    min-width: 120px;
+  }
 }
 
 /* Button styles - touch friendly */
@@ -161,6 +241,8 @@ body {
   font-size: 16px; /* Prevents zoom on iOS */
   line-height: 1.5;
   transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .form-input:focus {
@@ -177,6 +259,77 @@ body {
   font-size: 16px;
   background-color: white;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Form layout improvements */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile form optimizations */
+@media (max-width: 768px) {
+  .form-input,
+  .form-select {
+    padding: 14px 16px;
+    font-size: 16px; /* Prevent zoom */
+    border-radius: 12px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Stack form grids on mobile */
+  .grid.grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .sm\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Improve form sections */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 0.75rem !important;
+  }
+  
+  /* Form section headers */
+  .border-b {
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  /* Better spacing for form elements */
+  textarea.form-input {
+    min-height: 120px;
+    resize: vertical;
+  }
 }
 
 /* Navigation improvements */
@@ -219,12 +372,132 @@ body {
 .preview-container {
   max-width: 100%;
   overflow: hidden;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1rem;
 }
 
 .hall-ticket-preview {
   transform-origin: top left;
   max-width: 100%;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  position: relative;
 }
+
+/* Mobile preview improvements */
+@media (max-width: 768px) {
+  .preview-container {
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .hall-ticket-preview {
+    transform: scale(0.75);
+    transform-origin: top left;
+    width: 133%; /* Compensate for scale */
+    margin-bottom: -25%; /* Reduce extra space */
+  }
+  
+  /* Preview actions on mobile */
+  .preview-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .preview-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Make preview section full width on mobile */
+  #generator .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  #generator .lg\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Improve final generation preview */
+  #finalHallTicketPreview {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 125%;
+    margin-bottom: -20%;
+  }
+  
+  /* Better mobile preview scrolling */
+  .overflow-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Modal and popup improvements */
+.fixed {
+  position: fixed;
+}
+
+/* Improve modal responsiveness */
+@media (max-width: 768px) {
+  /* Modal adjustments */
+  .modal-container {
+    margin: 1rem;
+    max-height: 85vh;
+  }
+  
+  .modal-content {
+    border-radius: 1rem;
+  }
+  
+  /* Branch popup specific */
+  #branchPopup .bg-white {
+    max-height: 90vh;
+    margin: 0.5rem;
+  }
+  
+  #branchPopup .p-6 {
+    padding: 1rem;
+  }
+  
+  #branchPopup .grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  /* Add branch modal */
+  #addBranchModal .bg-white {
+    margin: 1rem;
+    max-height: 85vh;
+  }
+  
+  #addBranchModal .grid-cols-8 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  #addBranchModal .grid-cols-6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  /* Learn more modal */
+  #learnMoreModal .bg-white {
+    margin: 1rem;
+    max-height: 90vh;
+  }
+  
+  /* Modal buttons */
+  .modal-footer-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-footer-buttons .btn {
+    width: 100%;
+  }
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
@@ -440,5 +713,212 @@ footer {
   font-weight: 700;
   box-shadow: 0 2px 6px rgba(37,99,235,0.06);
   font-size: 0.92rem;
+}
+
+/* Additional mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Touch-friendly interactions */
+  .card-hover {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Better touch targets for interactive elements */
+  button, .btn, a, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Improve section spacing on mobile */
+  .section {
+    padding-top: 1rem;
+  }
+  
+  /* Mobile-optimized hero section */
+  .gradient-bg {
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Better mobile typography */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Mobile card improvements */
+  .rounded-xl {
+    border-radius: 1rem;
+  }
+  
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Better mobile form styling */
+  .form-input[type="file"] {
+    padding: 10px;
+    background: #f9fafb;
+    border-style: dashed;
+  }
+  
+  /* Mobile-optimized bulk subjects section */
+  #bulkSubjectsSection {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  
+  /* Improve mobile grid layouts */
+  .grid {
+    gap: 1rem;
+  }
+  
+  .lg\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .md\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .lg\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  /* Mobile footer improvements */
+  footer .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  /* Better mobile padding */
+  .p-6 {
+    padding: 1rem;
+  }
+  
+  .p-8 {
+    padding: 1.5rem;
+  }
+  
+  .px-8 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* Mobile-specific utility classes */
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-full-width {
+    width: 100vw;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Tablet-specific improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet grid adjustments */
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  /* Tablet form improvements */
+  .form-input,
+  .form-select {
+    padding: 12px 14px;
+  }
+}
+
+/* Very small screens (smaller phones) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.125rem !important;
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .form-input,
+  .form-select {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .py-12 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  .py-20 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .mb-12 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .mb-16 {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Improve accessibility and user experience */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadeIn {
+    animation: none;
+  }
+  
+  .card-hover {
+    transition: none;
+  }
+  
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+  
+  .form-input,
+  .form-select {
+    border-width: 3px;
+  }
 }
 

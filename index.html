@@ -1020,6 +1020,72 @@
 
     <!-- JavaScript -->  
     <script src="script.js"></script>
+    <script>
+      // Mobile menu functionality
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.querySelector('#mobileMenuBtn i');
+        
+        if (mobileMenu.classList.contains('show')) {
+          mobileMenu.classList.remove('show');
+          menuIcon.className = 'fas fa-bars text-xl';
+        } else {
+          mobileMenu.classList.add('show');
+          menuIcon.className = 'fas fa-times text-xl';
+        }
+      }
+      
+      function closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.querySelector('#mobileMenuBtn i');
+        mobileMenu.classList.remove('show');
+        menuIcon.className = 'fas fa-bars text-xl';
+      }
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        
+        if (!mobileMenu?.contains(event.target) && !menuBtn?.contains(event.target)) {
+          closeMobileMenu();
+        }
+      });
+      
+      // Enhanced table scrolling for mobile
+      function initTableScrolling() {
+        const tableContainers = document.querySelectorAll('.table-container');
+        
+        tableContainers.forEach(container => {
+          const table = container.querySelector('table');
+          
+          if (table) {
+            // Check if table is scrollable
+            function checkScrollable() {
+              const isScrollable = table.scrollWidth > container.clientWidth;
+              container.classList.toggle('scrollable', isScrollable);
+            }
+            
+            // Initial check
+            checkScrollable();
+            
+            // Check on resize
+            window.addEventListener('resize', checkScrollable);
+            
+            // Add scroll momentum for better mobile experience
+            container.style.webkitOverflowScrolling = 'touch';
+          }
+        });
+      }
+      
+      // Initialize table scrolling when DOM is loaded
+      document.addEventListener('DOMContentLoaded', initTableScrolling);
+      
+      // Re-initialize when tables are updated
+      if (typeof window.updateTableScrolling === 'undefined') {
+        window.updateTableScrolling = initTableScrolling;
+      }
+    </script>
     <!-- Learn More Modal -->
     <div id="learnMoreModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
       <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-auto max-h-[90vh]">
